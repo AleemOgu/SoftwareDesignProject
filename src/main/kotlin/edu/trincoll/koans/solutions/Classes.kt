@@ -1,4 +1,6 @@
-package edu.trincoll.koans
+package edu.trincoll.koans.solutions
+
+// Rename on import
 import kotlin.random.Random as KRandom
 import java.util.Random as JRandom
 
@@ -12,8 +14,7 @@ fun getPeople(): List<Person> {
 fun comparePeople(): Boolean {
     val p1 = Person("Alice", 29)
     val p2 = Person("Alice", 29)
-    return p1 == p2  // should be true
-//    return false
+    return p1 == p2
 }
 
 // Smart casts
@@ -21,35 +22,25 @@ fun evalSmartCasts(expr: Expr): Int =
     when (expr) {
         is Num -> expr.value
         is Sum -> evalSmartCasts(expr.left) + evalSmartCasts(expr.right)
-        else -> throw IllegalArgumentException("Unknown expression")
     }
-
-//interface Expr
-//class Num(val value: Int) : Expr
-//class Sum(val left: Expr, val right: Expr) : Expr
-
-// Sealed classes
-fun eval(expr: Expr): Int =
-    when (expr) {
-        is Num ->  expr.value
-        is Sum -> eval(expr.left) + eval(expr.right)
-//        else -> throw IllegalArgumentException("Unknown expression")
-    }
-
 
 sealed interface Expr
 class Num(val value: Int) : Expr
 class Sum(val left: Expr, val right: Expr) : Expr
 
-
-// Rename on import
+// Sealed classes
+fun eval(expr: Expr): Int =
+    when (expr) {
+        is Num -> expr.value
+        is Sum -> eval(expr.left) + eval(expr.right)
+    }
 
 
 fun useDifferentRandomClasses(): String {
     return "Kotlin random: " +
-             KRandom.nextInt(2) +
+            KRandom.nextInt(2) +
             " Java random:" +
-             JRandom().nextInt(2) +
+            JRandom().nextInt(2) +
             "."
 }
 
