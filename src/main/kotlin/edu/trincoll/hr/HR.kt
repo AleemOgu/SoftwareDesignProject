@@ -6,5 +6,25 @@ package edu.trincoll.hr
 //   - a fire method that takes an id and returns a new HR object with the employee with that id removed
 //   - a payEmployees method that returns the total pay of all employees
 class HR(private val employees: List<Employee> = emptyList()) {
+    fun hire(employee: Employee): HR {
+        val newEmployees = employees + employee
+        return HR(newEmployees)
+    }
+    fun fire(employeeId : Int): HR {
+
+        val nEmployees = employees.filter{ it.id != employeeId }
+        return HR(nEmployees)
+    }
+
+    fun payEmployees() = employees.sumOf { it.pay() }
+
 
 }
+//
+//fun getTotalInkUsed() = shapes.sumOf { it.perimeter() }
+//
+//fun getShapesSortedByArea() = shapes.sorted()
+//
+//// New method to calculate total area
+//fun totalArea() = shapes.sumOf { it.area() }
+//}
