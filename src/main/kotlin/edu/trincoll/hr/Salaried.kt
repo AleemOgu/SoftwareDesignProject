@@ -15,6 +15,6 @@ class Salaried(name: String, id: Int, var salary: Double) : Employee(name, id) {
     override fun pay() = salary/26.0
 
     override fun toString(): String {
-        return "name: $name, id: $id, salary: $salary"
+        return "Salaried(name=$name, id=$id, salary=$salary)"
     }
 }

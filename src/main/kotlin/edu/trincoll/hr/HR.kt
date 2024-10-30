@@ -20,11 +20,3 @@ class HR(private val employees: List<Employee> = emptyList()) {
 
 
 }
-//
-//fun getTotalInkUsed() = shapes.sumOf { it.perimeter() }
-//
-//fun getShapesSortedByArea() = shapes.sorted()
-//
-//// New method to calculate total area
-//fun totalArea() = shapes.sumOf { it.area() }
-//}
