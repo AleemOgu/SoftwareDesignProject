@@ -67,6 +67,7 @@ class JsonplaceholderServiceTest {
             val response = service.deletePost(1)
             assertEquals(200, response.status.value)
         }
+
     }
 
 }
