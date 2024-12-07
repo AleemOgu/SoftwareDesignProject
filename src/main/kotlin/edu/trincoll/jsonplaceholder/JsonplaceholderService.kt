@@ -28,32 +28,29 @@ data class BlogPost(
 class JsonPlaceholderService {
     private val baseUrl = "https://jsonplaceholder.typicode.com"
 
-    private fun createHttpClient(): HttpClient {
-        return HttpClient(CIO) {
-            install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                })
-            }
-        }
-    }
-
     suspend fun getPosts(): List<BlogPost> =
-        createHttpClient().use { client ->
+
+        HttpClient(CIO) {
+            install(ContentNegotiation) { json() }
+        }.use { client ->
             client.get("$baseUrl/posts") {
                 accept(ContentType.Application.Json)
             }.body()
         }
 
     suspend fun getPost(index: Int): HttpResponse =
-        createHttpClient().use { client ->
+        HttpClient(CIO) {
+            install(ContentNegotiation) { json() }
+        }.use { client ->
             client.get("$baseUrl/posts/$index") {
                 accept(ContentType.Application.Json)
             }
         }
 
     suspend fun insertPost(post: BlogPost): HttpResponse =
-        createHttpClient().use { client ->
+        HttpClient(CIO) {
+            install(ContentNegotiation) { json() }
+        }.use { client ->
             client.post("$baseUrl/posts") {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
@@ -62,7 +59,9 @@ class JsonPlaceholderService {
         }
 
     suspend fun updatePost(post: BlogPost): BlogPost =
-        createHttpClient().use { client ->
+        HttpClient(CIO) {
+            install(ContentNegotiation) { json() }
+        }.use { client ->
             client.put("$baseUrl/posts/${post.id}") {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
@@ -71,19 +70,23 @@ class JsonPlaceholderService {
         }
 
     suspend fun deletePost(index: Int): HttpResponse =
-        createHttpClient().use { client ->
+        HttpClient(CIO).use { client ->
             client.delete("$baseUrl/posts/$index")
         }
 
-    suspend fun main() {
-//        val prompt = "Explain quantum computing in simple terms."
-//        val response = sendOllamaRequest(prompt)
-//        println("Response from Ollama: ${response.response}")
-
-        "http:'/localhost:11434/api/generate" -d '{
-        "model": "llama3.2",
-        "prompt": "Why is the sky blue?",
-        "stream": false
-    }'
-    }
+//    suspend fun main() {
+//        //        val prompt = "Explain quantum computing in simple terms."
+////        val response = sendOllamaRequest(prompt)
+////        println("Response from Ollama: ${response.response}")
+//        data class OllamaRequest(val model: String, val prompt: String, val stream: Boolean)
+//        createHttpClient().use { client ->
+//            client.post("http:'/localhost:11434/api/generate") {
+//                contentType(ContentType.Application.Json)
+//                accept(ContentType.Application.Json)
+//                setBody(OllamaRequest("llama3.2", "Why is the sky blue?", false))
+//            }
+//
+//
+//        }
+//    }
 }
